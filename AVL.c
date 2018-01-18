@@ -17,9 +17,7 @@ typedef struct TipoNo{
 TipoNo *criaNo(int num){
     TipoNo *no;
     no = malloc(sizeof(TipoNo));
-    no->num = num;
-    no->dir = NULL;
-    no->esq = NULL;
+
     return no;
 }
 void imprimePRE(TipoNo *no){
