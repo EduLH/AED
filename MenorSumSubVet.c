@@ -10,10 +10,13 @@ int plus(int init,int end,int *vector){
 }
 
 void print(int init,int end,int *vector){
-  int i;
-  for (i = init; i <= end; i++) {
-    printf("%d\n", vector[i]);
+  if (plus(init, end, vector) >= 0){
+    printf(" 0 ");
+    return;
   }
+  int i;
+  for (i = init; i <= end; i++)
+    printf("%d\n", vector[i]);
 }
 
 int main(){
