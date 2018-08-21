@@ -74,14 +74,14 @@ void Arruma(int *Zeca, int Comeco, int fim, int itemMovido){
  Sorting Algorithm | Quick Sort - step by step guide
  <youtube.com/watch?v=3OLTJlwyIqQ>, acessado 18/agosto/2017 */
 void NesQUICKsort(int *Zeca, int DI, int EI){
-  //Esquesda do PIVO sempre deverá ser MENOR que elemento
+  //Esquerda do PIVO sempre deverá ser MENOR que elemento
   //Direita do PIVO sempre deverá ser MAIOR que elemento
   int DirIndex, EsqIndex, Pivo, aux, hold, ei1, di1;
-  hold = 0;// utilizado para mover o
-  DirIndex = Pivo = di1 = DI;//no caso inicial sera 0
-  EsqIndex = ei1 = EI;//no caso inicial sera tam
+  hold = 0;// utilizado para mover o LADO
+  DirIndex = Pivo = di1 = DI;//no caso inicial sera tam
+  EsqIndex = ei1 = EI;//no caso inicial sera 0
   while (DirIndex != EsqIndex) {
-    if(hold == 0){
+    if(hold == 0){//trata a DIREITA
       if (Zeca[Pivo] < Zeca[DirIndex])
         DirIndex--;
       else{
@@ -93,7 +93,7 @@ void NesQUICKsort(int *Zeca, int DI, int EI){
         hold = 1;
       }
     }
-    else{
+    else{//trata a ESQUERDA
       if (DirIndex != EsqIndex && Zeca[EsqIndex] < Zeca[Pivo] )
         EsqIndex--;
       else{

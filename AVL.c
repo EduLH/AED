@@ -9,6 +9,7 @@ Este arquivo é de intuito didático apenas
                     ATENÇÃO!
 FALTA IMPLEMENTAR A REMOÇÃO E VERIFICADOR DE ÁRVORE
 */
+
 typedef struct TipoNo{
     int num;
     struct TipoNo *esq,*dir;
@@ -26,21 +27,21 @@ void imprimePRE(TipoNo *no){
     if(no==NULL)
         return;
     printf("%d",no->num);
-    imprime(no->esq);
-    imprime(no->dir);
+    imprimePRE(no->esq);
+    imprimePRE(no->dir);
 }
 void imprimeEM(TipoNo *no){
     if(no==NULL)
         return;
-    imprime(no->esq);
+    imprimeEM(no->esq);
     printf("%d",no->num);
-    imprime(no->dir);
+    imprimeEM(no->dir);
 }
 void imprimePOS(TipoNo *no){
     if(no==NULL)
         return;
-    imprime(no->esq);
-    imprime(no->dir);
+    imprimePOS(no->esq);
+    imprimePOS(no->dir);
     printf("%d",no->num);
 }
 
@@ -90,28 +91,30 @@ int HDHE(TipoNo *no){
 }
 
 void Inserir(TipoNo *no, int chave){
-  if(no == NULL){}
+  if(no == NULL){
     criaNo(chave);
     return;
   }
   else{
-    if(chave > no->num)
+    if(chave > no->num){
       if(no->dir != NULL)
-        Inserir(no->dir);
+        Inserir(no->dir, chave);
       else
         no->dir = criaNo(chave);
-    else
-      if(chave->esq != NULL)
-        Inserir(no->esq);
+    }
+    else{
+      if(no->esq != NULL)
+        Inserir(no->esq, chave);
       else
         no->esq = criaNo(chave);
+    }
   }
 }
 
 
 
 void remover(TipoNo *no){
-  TipoNo aux, pai;
+  TipoNo *aux, *pai;
   if(no->dir != NULL){
     aux = no->dir;
     while (aux->esq != NULL)
@@ -138,8 +141,8 @@ void verificaTam(TipoNo *no){
       DoubleRotEsq(no);
 }
 
-/*cria um vetor com valores aleatórios e retorna o ponteiro pro vetor*/
-int* vetRand1k(){//perguntar pro Nathan
+/*cria um treeor com valores aleatórios e retorna o ponteiro pro treeor*/
+int* treeRand1k(){//perguntar pro Nathan
   int i, a, *j, *randomico;
   randomico = malloc(1000 * sizeof(int));
   for (i = 0; i != 999; i++){
@@ -149,14 +152,14 @@ int* vetRand1k(){//perguntar pro Nathan
   return j;
 }
 
-int sequencial(int *vetor, int target){
+int sequencial(int *treeor, int target){
   int i;
   for (i = 0; i != 999; i++){
-    if (vetor[i] == target)
+    if (treeor[i] == target)
       return i;
   return -1;//nao achou
 }
-
+/*
 int *binaria(int *Zeca, int target, int init, int fim){
   int mid;
   mid = ((fim-init)/2) + init;
@@ -173,19 +176,46 @@ int *binaria(int *Zeca, int target, int init, int fim){
   if (Zeca[mid] < target)
     binaria(Zeca, target, init, mid);
   return -1;
-}
+}*/
 
-int *arvoreBusca(int X, TipoNo *tree){
+TipoNo *arvoreBusca(int X, TipoNo *tree){
 
   if(tree != NULL){
     if (tree->num == X)
-        return 1; //achou
+        return tree; //achou
     else{
       if(tree->esq != NULL)
-        busca(X, tree->esq);
+        arvoreBusca(X, tree->esq);
       if(tree->dir != NULL)
-        busca(X, tree->dir);
+        arvoreBusca(X, tree->dir);
     }
   }
-  return -1; //nao achou
+  return  NULL; //nao achou
+}
+
+int main(){
+    int i, aux;
+    TipoNo *tree;
+    tree = NULL;
+    i = 1;
+    while(i==1) {
+        scanf("%i", &aux);
+        if(aux > 0){
+          if(tree == NULL){
+            tree = criaNo(aux);
+          }
+          else{
+            tree = Inserir(tree, aux);
+          }
+        }
+        else{
+          i = 0;
+        }
+    }
+    scanf("%i", &aux);
+    tree = busca(tree, aux);
+    aux = conta(tree);
+    printf("%i\n", aux-1);
+    return 0;
+
 }

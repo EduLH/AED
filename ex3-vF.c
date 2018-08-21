@@ -78,8 +78,7 @@ PFila FIGHT(PFila line,int heal){// tem que colocar a condicao pra verificar se 
     return line;
 }
 
-int main()
-{
+int main(){
     int N, heal, i;
     float tot;
     PFila ffila;

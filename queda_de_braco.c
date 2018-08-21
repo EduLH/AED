@@ -83,7 +83,7 @@ int main()
     int N, heal, i;
     float tot;
     PFila ffila;
-    ffila = iniciaFila(ffila);https://www.youtube.com/watch?v=xos2MnVxe-c
+    ffila = iniciaFila(ffila);/*https://www.youtube.com/watch?v=xos2MnVxe-c*/
     scanf("%d %d", &N, &heal);
     tot = pow(2, N);
     //aqui ja comeca a escanear as forcas e td
