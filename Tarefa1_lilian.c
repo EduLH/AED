@@ -6,31 +6,44 @@
 /* Marcos Eduardo Lopes Honorato. RA: 86379 */
 /*** todos os sorts assumem que o vetor terá mais que um item ***/
 
+void imprime(int *Zeca, int Tamam){
+  int i;
+  for (i = 0; i < Tamam; i++)//imprimindo o vetor ordenado
+    printf("%d ", Zeca[i]);
+  printf("\n");
+  return;
+}
+
 void SelSort(int *Zec, int tam){
   int i, menor, j, cup, save;
-  menor = Zec[tam-1];
   for (i = 0; i <  tam; i++){//laço do posicionameto
+    menor = Zec[i];
+    save = i;
     for(j = tam-1; j > i; j--){ //fim -> onde ja foi ordenado
-      if(menor < Zec[j])
+      if(menor > Zec[j]){
         save = j;//salva o local do menor elemento
+        menor = Zec[j];
+      }
     }
-  cup = Zec[save];
-  Zec[save] = Zec[i];//ordenando
-  Zec[i] = cup;
+    cup = Zec[save];
+    Zec[save] = Zec[i];//ordenando
+    Zec[i] = cup;
+    //imprime(Zec, tam);
   }
 }
 
 void InsertSort(int *Zec, int tam){
   int i, j, save;
-  for(i = 1; i < tam; i++){ //laço para parte ordenada
+  for(i = 0; i < tam; i++){ //laço para parte ordenada
     save = Zec[i];//item a ser movido
-    j -= i;
-
-    while(j >= 0 && save < Zec[j]){//passando o intem
-      Zec[j+1] = Zec[j];
-      j--;
+    for(j = i; j != -1; j--){
+      if(save < Zec[j]){
+        save = Zec[j+1];
+        Zec[j+1] = Zec[j];//passando o intem
+        Zec[j] = save;
+      }
     }
-    Zec[j+1] = save;//realocação
+    //imprime(Zec, tam);
   }
 }
 
@@ -44,6 +57,7 @@ void BolhaSort(int *Zec, int tam){
         Zec[j+1] = save;
       }
     }
+  //imprime(Zec, tam);
   }
 }
 
@@ -57,7 +71,8 @@ int main(){
     Zeca1 = malloc(Tamam * sizeof(Zeca));
     Zeca2 = malloc(Tamam * sizeof(Zeca));
     for (i = 0; i < Tamam; i++){
-	    Aux = rand() % Tamam;
+	    Aux = Aux + rand() % 10;//modo vetor crescente
+      //Aux = rand() % Tamam; //modo vetor aleatorio
 	    Zeca[i]  = Aux;
       Zeca1[i]  = Aux;
       Zeca2[i]  = Aux;
