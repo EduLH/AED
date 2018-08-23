@@ -4,7 +4,7 @@
 
 /*Trabalho para a dissiplina de AED-II d na UNIFESP*/
 /* Marcos Eduardo Lopes Honorato. RA: 86379 */
-/*** todos os sorts assumem que o vetor terá mais que um item ***/
+/* todos os sorts assumem que o vetor terá mais que um item */
 
 void imprime(int *Zeca, int Tamam){
   int i;
@@ -37,7 +37,7 @@ void ShellSort(int *Zeca, int tam){
 void NesQUICKsort(int *Zeca, int DI, int EI){
   //Esquerda do PIVO sempre deverá ser MENOR que elemento
   //Direita do PIVO sempre deverá ser MAIOR que elemento
-  int DirIndex, EsqIndex, Pivo, aux, hold, ei1, di1;
+  int DirIndex, EsqIndex, Pivo, Aux, hold, ei1, di1;
   hold = 0;// utilizado para mover o LADO
   DirIndex = Pivo = di1 = DI;//no caso inicial sera tam
   EsqIndex = ei1 = EI;//no caso inicial sera 0
@@ -63,7 +63,7 @@ void NesQUICKsort(int *Zeca, int DI, int EI){
         Zeca[EsqIndex] = Zeca [Pivo];
         Zeca[Pivo] = Aux;
         Pivo = EsqIndex;//at o Pivo
-        hold = 0
+        hold = 0;
       }
     }
   }
@@ -104,21 +104,21 @@ int main(){
       Zeca2[i]  = Aux;
     }
     clock_t start = clock();
-    SelSort(Zeca, Tamam);
+    ShellSort(Zeca, Tamam);
     clock_t end = clock();
     float seconds = (float)(end - start) / CLOCKS_PER_SEC;
     printf("%f\n", seconds);
 
     start = clock();
-    InsertSort(Zeca1, Tamam);
+    NesQUICKsort(Zeca1, 0, Tamam);
     end = clock();
     seconds = (float)(end - start) / CLOCKS_PER_SEC;
     printf("%f\n", seconds);
-
+    /*
     start = clock();
     BolhaSort(Zeca2, Tamam);
     end = clock();
     seconds = (float)(end - start) / CLOCKS_PER_SEC;
     printf("%f\n", seconds);
-
+    */
 }
