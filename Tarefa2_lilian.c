@@ -18,9 +18,9 @@ void ShellSort(int *Zeca, int tam){
   int i, j, save, jump, shell;
   jump = 4; /* definido o padrão o tamanho dos "pulos" do shell*/
   /* o algorítimo não aceitará vetores menores que 4 */
-  for( i = jump; i > 0; i--){ //laço reduzindo os pulos em 1
-    for(j = 0; j != i; j++){//mantem atado ao começo com os limites de pulo
-      for( shell = j; shell < tam; shell+i){//inicia em J e avança
+  for( i = jump; i > 0; i--){ //laço reduzindo os pulos em
+    for(j = 0; j != i-1; j++){//mantem atado ao começo com os limites de pulo
+      for( shell = j; shell < tam; shell = shell+i){//inicia em J e avança
         if(shell + i < tam && Zeca[shell] > Zeca[shell+i]){
           save = Zeca[shell];
           Zeca[shell] = Zeca[shell+i];
@@ -39,7 +39,8 @@ void NesQUICKsort(int *Zeca, int DI, int EI){
   //Direita do PIVO sempre deverá ser MAIOR que elemento
   int DirIndex, EsqIndex, Pivo, Aux, hold, ei1, di1;
   hold = 0;// utilizado para mover o LADO
-  DirIndex = Pivo = di1 = DI;//no caso inicial sera tam
+  Pivo = (DI-EI)/2;
+  DirIndex = di1 = DI;//no caso inicial sera tam
   EsqIndex = ei1 = EI;//no caso inicial sera 0
   while (DirIndex != EsqIndex) {
     if(hold == 0){//trata a DIREITA
@@ -68,8 +69,8 @@ void NesQUICKsort(int *Zeca, int DI, int EI){
     }
   }
   if (di1 != ei1){//parte recursiva
-    NesQUICKsort(*Zeca, di1, Pivo);
-    NesQUICKsort(*Zeca, Pivo, ei1);
+    NesQUICKsort(Zeca, di1, Pivo);
+    NesQUICKsort(Zeca, Pivo, ei1);
   }
 }
 
@@ -99,9 +100,9 @@ int main(){
     for (i = 0; i < Tamam; i++){
 	    Aux = Aux + rand() % 10;//modo vetor crescente
       //Aux = rand() % Tamam; //modo vetor aleatorio
-	    Zeca[i]  = Aux;
-      Zeca1[i]  = Aux;
-      Zeca2[i]  = Aux;
+        Zeca[i]  = Aux;
+        Zeca1[i]  = Aux;
+        Zeca2[i]  = Aux;
     }
     clock_t start = clock();
     ShellSort(Zeca, Tamam);
