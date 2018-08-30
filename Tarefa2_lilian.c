@@ -34,17 +34,19 @@ void ShellSort(int *Zeca, int tam){
 /*Este algoritimo se baseia no vídeo de Yusuf Shakeel presente em:
  Sorting Algorithm | Quick Sort - step by step guide
  <youtube.com/watch?v=3OLTJlwyIqQ>, acessado 18/agosto/2017 */
-void NesQUICKsort(int *Zeca, int DI, int EI){
+void NesQUICKsort(int *Zeca, int EI, int DI){
   //Esquerda do PIVO sempre deverá ser MENOR que elemento
   //Direita do PIVO sempre deverá ser MAIOR que elemento
-  int DirIndex, EsqIndex, Pivo, Aux, hold, ei1, di1;
+  int DirIndex, EsqIndex, Pivo, Aux, hold;
   hold = 0;// utilizado para mover o LADO
-  Pivo = (DI-EI)/2;
-  DirIndex = di1 = DI;//no caso inicial sera tam
-  EsqIndex = ei1 = EI;//no caso inicial sera 0
+  EsqIndex = EI;//no caso inicial sera 0
+  DirIndex = DI;//no caso inicial sera tam
+  Pivo = DI;
   while (DirIndex != EsqIndex) {
+    //printf("ZE: %i / ZP: %i / ZD: %i \n", Zeca[EsqIndex], Zeca[Pivo], Zeca[DirIndex]);
+    imprime(Zeca, 10);
     if(hold == 0){//trata a DIREITA
-      if (Zeca[Pivo] < Zeca[DirIndex])
+      if (DirIndex != EsqIndex && Zeca[Pivo] <= Zeca[DirIndex])
         DirIndex--;
       else{
         //swap
@@ -56,8 +58,8 @@ void NesQUICKsort(int *Zeca, int DI, int EI){
       }
     }
     else{//trata a ESQUERDA
-      if (DirIndex != EsqIndex && Zeca[EsqIndex] < Zeca[Pivo] )
-        EsqIndex--;
+      if (DirIndex != EsqIndex && Zeca[EsqIndex] <= Zeca[Pivo])
+        EsqIndex++;
       else{
         //swap
         Aux = Zeca[EsqIndex];
@@ -68,9 +70,11 @@ void NesQUICKsort(int *Zeca, int DI, int EI){
       }
     }
   }
-  if (di1 != ei1){//parte recursiva
-    NesQUICKsort(Zeca, di1, Pivo);
-    NesQUICKsort(Zeca, Pivo, ei1);
+  if (DI != EI){//parte recursiva
+    printf("E: %i // D: %i // P: %i // h:%i \n", EsqIndex, DirIndex, Pivo, hold);
+    printf("rec\n");
+    NesQUICKsort(Zeca, EI, Pivo);
+    NesQUICKsort(Zeca, Pivo+1, DI);
   }
 }
 
@@ -98,8 +102,8 @@ int main(){
     Zeca1 = malloc(Tamam * sizeof(Zeca));
     Zeca2 = malloc(Tamam * sizeof(Zeca));
     for (i = 0; i < Tamam; i++){
-	    Aux = Aux + rand() % 10;//modo vetor crescente
-      //Aux = rand() % Tamam; //modo vetor aleatorio
+	    //Aux = Aux + rand() % 10;//modo vetor crescente
+      Aux = rand() % Tamam+10; //modo vetor aleatorio
         Zeca[i]  = Aux;
         Zeca1[i]  = Aux;
         Zeca2[i]  = Aux;
@@ -111,7 +115,7 @@ int main(){
     printf("%f\n", seconds);
 
     start = clock();
-    NesQUICKsort(Zeca1, 0, Tamam);
+    NesQUICKsort(Zeca1, 0, Tamam-1);
     end = clock();
     seconds = (float)(end - start) / CLOCKS_PER_SEC;
     printf("%f\n", seconds);
